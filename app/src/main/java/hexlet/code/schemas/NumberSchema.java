@@ -3,7 +3,7 @@ package hexlet.code.schemas;
 import java.util.function.Predicate;
 import java.util.Objects;
 
-public class NumberSchema extends BaseSchema<Integer> {
+public final class NumberSchema extends BaseSchema<Integer> {
     public NumberSchema required() {
         Predicate<Integer> required = Objects::nonNull;
         allChecks.put("required", required);

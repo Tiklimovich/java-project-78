@@ -5,7 +5,7 @@ import java.util.Objects;
 import java.util.function.Predicate;
 
 
-public class MapSchema extends BaseSchema<Map<String, String>> {
+public final class MapSchema extends BaseSchema<Map<String, String>> {
     public MapSchema required() {
         Predicate<Map<String, String>> required  = Objects::nonNull;
         allChecks.put("required", required);

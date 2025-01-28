@@ -6,9 +6,9 @@ import java.util.function.Predicate;
 
 public abstract class BaseSchema<T> {
 
-    protected final Map<String, Predicate<T>> allChecks = new LinkedHashMap<>();
+    protected Map<String, Predicate<T>> allChecks = new LinkedHashMap<>();
 
-    public boolean isValid(T obj) {
+    public final boolean isValid(T obj) {
         if (allChecks.isEmpty()) {
             return true;
         }
