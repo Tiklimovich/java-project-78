@@ -10,7 +10,7 @@ public class NumberSchema extends BaseSchema<Integer> {
         return this;
     }
     public NumberSchema positive() {
-        Predicate<Integer> positive = value -> value > 0;
+        Predicate<Integer> positive = value -> value == null || value > 0;
         allChecks.put("positive", positive);
         return this;
     }
