@@ -1,18 +1,18 @@
 package hexlet.code.schemas;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.function.Predicate;
 
 public abstract class BaseSchema<T> {
 
-    protected final List<Predicate<T>> allChecks = new ArrayList<>();
+    protected final Map<String, Predicate<T>> allChecks = new LinkedHashMap<>();
 
     public boolean isValid(T obj) {
         if (allChecks.isEmpty()) {
             return true;
         }
-        for (Predicate<T> predicate : allChecks) {
+        for (Predicate<T> predicate : allChecks.values()) {
             if (!predicate.test(obj)) {
                 return false;
             }
