@@ -15,6 +15,7 @@ public class SrtingSchemaTest {
         assertFalse(schema.required().isValid(""));
         assertFalse(schema.required().isValid(null));
     }
+
     @Test
     public void testMinLength() {
         var v = new Validator();
@@ -23,6 +24,7 @@ public class SrtingSchemaTest {
         assertTrue(schema.minLength(4).isValid(str));
         assertFalse(schema.minLength(8).isValid(str));
     }
+
     @Test
     public void testContains() {
         var v = new Validator();
@@ -31,6 +33,7 @@ public class SrtingSchemaTest {
         assertTrue(schema.contains("tri").isValid(str));
         assertFalse(schema.contains("tro").isValid(str));
     }
+
     @Test
     public void testAccum() {
         var v = new Validator();
@@ -49,6 +52,7 @@ public class SrtingSchemaTest {
         schema.contains("hex");
         assertFalse(schema.isValid(str));
     }
+
     @Test
     public void testAll() {
         var v = new Validator();

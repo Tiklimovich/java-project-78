@@ -24,6 +24,7 @@ public class MapSchemaTest {
 
         assertTrue(schema.isValid(data));
     }
+
     @Test
     public void testSizeof() {
         var v = new Validator();
@@ -35,6 +36,7 @@ public class MapSchemaTest {
         assertTrue(schema.sizeof(2).isValid(data));
         assertFalse(schema.sizeof(1).isValid(data));
     }
+
     @Test
     public void testShape() {
         var v = new Validator();
