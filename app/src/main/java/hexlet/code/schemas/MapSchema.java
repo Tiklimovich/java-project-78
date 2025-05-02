@@ -1,31 +1,32 @@
 package hexlet.code.schemas;
 
 import java.util.Map;
-import java.util.function.Predicate;
 
-public final class MapSchema<K, V> extends BaseSchema<Map<K, V>> {
+public final class MapSchema extends BaseSchema<Map<String, String>> {
 
-    public MapSchema<K, V> required() {
-        addNonNullCheck();
+    public MapSchema required() {
+        setRequired(true);
+        addCheck("required", map -> map != null);
         return this;
     }
 
-    public MapSchema<K, V> sizeof(int size) {
-        Predicate<Map<K, V>> sizeof = map -> map.size() == size;
-        allChecks.put("sizeof", sizeof);
+    public MapSchema sizeof(int size) {
+        addCheck("sizeof", map -> map.size() == size);
         return this;
     }
 
-    public MapSchema<K, V> shape(Map<K, BaseSchema<V>> schemas) {
-        Predicate<Map<K, V>> shapeCheck = map ->
-                schemas.entrySet().stream()
-                        .allMatch(entry -> {
-                            K key = entry.getKey();
-                            V value = map.get(key);
-                            BaseSchema<V> schema = entry.getValue();
-                            return schema.isValid(value);
-                        });
-        allChecks.put("shape", shapeCheck);
+    public MapSchema shape(Map<String, BaseSchema<String>> schemas) {
+        addCheck("shape", map -> {
+            for (var entry : schemas.entrySet()) {
+                String key = entry.getKey();
+                BaseSchema<String> schema = entry.getValue();
+                String value = map.get(key);
+                if (!schema.isValid(value)) {
+                    return false;
+                }
+            }
+            return true;
+        });
         return this;
     }
 }

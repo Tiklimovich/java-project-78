@@ -3,20 +3,31 @@ package hexlet.code.schemas;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.Predicate;
-import java.util.Objects;
 
 public abstract class BaseSchema<T> {
 
-    protected Map<String, Predicate<T>> allChecks = new LinkedHashMap<>();
-    public final void addNonNullCheck() {
-        allChecks.put("nonNull", Objects::nonNull);
-    }
+    protected final Map<String, Predicate<T>> allChecks = new LinkedHashMap<>();
+    private boolean isRequired = false;
 
     public final boolean isValid(T obj) {
-        if (allChecks.isEmpty()) {
+        if (!isRequired && obj == null) {
             return true;
         }
-        return allChecks.values().stream()
-                .allMatch(predicate -> predicate.test(obj));
+
+        for (Predicate<T> check : allChecks.values()) {
+            if (!check.test(obj)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    protected void setRequired(boolean required) {
+        this.isRequired = required;
+    }
+
+    protected void addCheck(String name, Predicate<T> predicate) {
+        allChecks.put(name, predicate);
     }
 }
