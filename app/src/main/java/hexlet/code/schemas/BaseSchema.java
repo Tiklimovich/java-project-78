@@ -23,11 +23,11 @@ public abstract class BaseSchema<T> {
         return true;
     }
 
-    protected void setRequired(boolean required) {
+    protected final void setRequired(boolean required) {
         this.isRequired = required;
     }
 
-    protected void addCheck(String name, Predicate<T> predicate) {
+    protected final void addCheck(String name, Predicate<T> predicate) {
         allChecks.put(name, predicate);
     }
 }
